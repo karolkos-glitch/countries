@@ -1,12 +1,23 @@
-import React, {lazy, Suspense} from 'react'
+import React, {lazy, Suspense, Fragment} from 'react'
+import {connect, useSelector} from 'react-redux';
 import Header from './Header';
-import styled from 'styled-components';
-import { lightTheme } from '../styled';
-import fetchData from '../apis';
+import styled, {createGlobalStyle}from 'styled-components';
+import { lightTheme, fonts } from '../styled';
+import { fetchData } from '../actions';
 const Details = lazy(()=>import("./Details"));
 const Home = lazy(()=>import("./Home"));
-
 const {background} = lightTheme;
+const {fontFamily} = fonts;
+
+
+const Global = createGlobalStyle`
+    * {
+        font-family: ${fontFamily};
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+`;
 const StyledBody = styled.div`
     display: flex;
     justify-content: center;
@@ -15,19 +26,23 @@ const StyledBody = styled.div`
     height: 100vh;
     background: ${background};
 `;
+const StyledMain = styled.main`
 
+`;
 const App = () => {
-    fetchData();
-    const isSelected = true;
-    const main = (isSelected)? <Home /> : <Details/> ;
+    const isSelected = useSelector(state=>state.selectedCountry);
+    const main = (!isSelected)? <Home /> : <Details/> ;
     return (
+        <Fragment>
+        <Global />
         <StyledBody>
             <Header />
             <Suspense fallback={()=>(<div>Loading...</div>)}>
                 {main}
             </Suspense>
         </StyledBody>
+        </Fragment>
     )
 }
 
-export default App
+export default connect(null,{fetchData})(App)
