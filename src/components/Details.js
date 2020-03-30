@@ -17,6 +17,8 @@ const StyledArticle = styled.article`
     width: 80%;
     height: 100vh;
     display: flex;
+    position: relative;
+    bottom: 100px;
     justify-content: space-between;
     flex-wrap: nowrap;
     align-items: center;

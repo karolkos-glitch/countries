@@ -10,7 +10,7 @@ const Home = ({fetchData, theme}) => {
     const renderedList = (countries)?countries.map(item => <Country key={item.numericCode} item={item} theme={theme}/>):<div>Loading...</div>;
     return (
         <Fragment>
-            <Search/>
+            <Search theme={theme}/>
             {renderedList}
         </Fragment>
     )

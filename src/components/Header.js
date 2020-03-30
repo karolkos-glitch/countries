@@ -13,20 +13,23 @@ const StyledHeader = styled.header`
     width: 100%;
     height: 50px;
     background: ${props=> props.bg};
-    border: 1px solid ${props => props.border};
+    box-shadow: 0 0 2.5px 0 rgba(168,168,168,1);
    > h1, > p {
        font-size: ${homeSize};
        font-weight: ${bold};
    }
+   > p:hover {
+       cursor: pointer;
+       }
 `;
 const Header = ({theme}) => {
     const {element, text, name} = theme;
-    const borderColor = (name==="light")?"black":"white";
+    const nameOfMode = (name==="light")? "Dark": "Light";
     const dispatch = useDispatch();
     return (
-        <StyledHeader bg={element} text={text} border={borderColor}>
+        <StyledHeader bg={element} text={text}>
             <h1>Where in the world</h1>
-            <p onClick={()=>dispatch({type: "SWITCH_MODE"})}><span></span>Dark Mode</p>
+    <p onClick={()=>dispatch({type: "SWITCH_MODE"})}><span></span>{nameOfMode} mode</p>
         </StyledHeader>
     )
 }

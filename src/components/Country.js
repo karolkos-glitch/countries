@@ -7,6 +7,7 @@ const StyledArticle = styled.article`
     box-sizing: border-box;
     margin: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 2.5px 0 rgba(168,168,168,1);
     background-color: ${props=>props.bg};
     color: ${props=>props.text};
     overflow: hidden;
