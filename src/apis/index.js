@@ -6,6 +6,10 @@ export const countries = async () => {
 export const countryName = async (name) => {
     const response = await fetch(`https://restcountries.eu/rest/v2/name/${name}`);
     const result = await response.json();
-    console.log(result);
+    return result;
+}
+export const countriesByRegion = async (name) => {
+    const response = await fetch(`https://restcountries.eu/rest/v2/region/${name}`);
+    const result = await response.json();
     return result;
 }

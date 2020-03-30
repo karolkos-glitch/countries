@@ -1,12 +1,16 @@
-import {countries} from '../apis';
-import {countryName} from '../apis';
+import {countries, countriesByRegion, countryName} from '../apis';
+
 export const fetchDataAll = () => async (dispatch) => {
-    const result = await countries();
-    dispatch({type: 'FETCH_ALL_COUNTRIES', payload: result});
+    const payload= await countries();
+    dispatch({type: 'FETCH_ALL_COUNTRIES', payload});
 }
 
 export const fetchDataByName = (name) => async (dispatch) => {
-    const result = await countryName(name);
-    console.log(name);
-    dispatch({type: 'FETCH_COUNTRY_BY_NAME', payload: result});
+    const payload = await countryName(name);
+    dispatch({type: 'FETCH_COUNTRY_BY_NAME', payload});
+}
+
+export const fetchDataByRegion = (name) => async (dispatch) => {
+    const payload = await countriesByRegion(name);
+    dispatch({type: 'FETCH_COUNTRIES_BY_REGION', payload})
 }
