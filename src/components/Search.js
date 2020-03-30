@@ -1,65 +1,73 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import {useForm} from 'react-hook-form';
 import styled from 'styled-components';
+import { useDispatch, connect } from 'react-redux';
+import { fetchDataByName } from '../actions';
 
 const StyledForm = styled.form`
     width: 80%;
+    height: 200px;
+    position: relative;
     padding: 50px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: ${props=>props.text};
     > input {
+        color: ${props=>props.text};
         width: 450px;
         height: 35px;
         border-radius: 15px;
         padding: 0 20px;
-        background-color: ${props=>props.bg}
+        background-color: ${props=>props.bg};
+        border: none;
+        box-shadow: 0 0 2.5px 0 rgba(168,168,168,1); 
     }
-    > div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        > ul {
-            :hover > li {
+    > ul {
+        :hover > li {
+            display: block;
+        }
+        list-style-type: none;
+        > li {
+            position: absolute;
+            border-bottom: 1px solid white;
+            display: none;
+            box-shadow: 0 0 2.5px 0 rgba(168,168,168,1); 
+            background-color: ${props=>props.bg};
+            height: 35px;
+            padding: 5px 20px;
+            :first-child{
                 display: block;
             }
-            list-style-type: none;
-            > li {
-                border-bottom: 1px solid white;
-                margin: 0 0 0 20px;
-                display: none;
-                background-color: grey;
-                height: 35px;
-                padding: 5px 20px;
-                :first-child{
-                    display: block;
-                }
-                :hover {
-                    cursor: pointer;
-                    background-color: #FFFF00;
-                }
-                :first-child{
-                    display: block;
+            :hover {
+                cursor: pointer;
+                background-color: #FFFF00;
                 }
             }
         }
     }
 `;
-const Search = ({theme}) => {
-    const {input, text } = theme;
+const Search = ({theme, fetchDataByName}) => {
+    const {handleSubmit, register} = useForm();
+    const onSubmit = values => {
+        const {countryName}=values;
+        fetchDataByName(countryName);
+    }
+    const {element, text } = theme;
     const regions = ["Africa", "Europe","Americas","Asia","Australia"];
     const renderedList = regions.map(item=><li>{item}</li>)
     return (
-        <StyledForm text={text} bg={input}>
-            <input  name="countryName" type="text" placeholder="Look for a country" />
-            <div>
-                <label>Filter by region: </label>
-                <ul>
-                    {renderedList}
-                </ul>
-            </div>
+        <StyledForm onSubmit={handleSubmit(onSubmit)} text={text} bg={element}>
+            <input ref={register()} name="countryName" type="text" placeholder="Look for a country" />
+            <ul>
+                <li>Filtered by region
+                    <ul>
+                        {renderedList}
+                    </ul>
+                </li>
+            </ul>
         </StyledForm>
     )
 }
 
-export default Search
+export default connect(null,{fetchDataByName})(Search)
