@@ -2,11 +2,10 @@ import React, {lazy, Suspense, Fragment} from 'react'
 import {connect, useSelector} from 'react-redux';
 import Header from './Header';
 import styled, {createGlobalStyle}from 'styled-components';
-import { lightTheme, fonts } from '../styled';
+import { fonts } from '../styled';
 import { fetchData } from '../actions';
 const Details = lazy(()=>import("./Details"));
 const Home = lazy(()=>import("./Home"));
-const {background} = lightTheme;
 const {fontFamily} = fonts;
 
 
@@ -23,20 +22,21 @@ const StyledBody = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     width: 100vw;
-    height: 100vh;
-    background: ${background};
+    background: ${ props => props.bg };
+    padding: 0 100px;
 `;
 const StyledMain = styled.main`
 
 `;
 const App = () => {
     const isSelected = useSelector(state=>state.selectedCountry);
-    const main = (!isSelected)? <Home /> : <Details/> ;
+    const theme = useSelector(state => state.theme);
+    const main = (!isSelected)? <Home theme={theme} /> : <Details theme={theme}/>;
     return (
         <Fragment>
         <Global />
-        <StyledBody>
-            <Header />
+        <StyledBody bg={theme.background}>
+            <Header theme={theme}/>
             <Suspense fallback={()=>(<div>Loading...</div>)}>
                 {main}
             </Suspense>

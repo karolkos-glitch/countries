@@ -6,9 +6,17 @@ const StyledArticle = styled.article`
     height: 325px;
     box-sizing: border-box;
     margin: 20px;
-    background: white;
     border-radius: 10px;
+    background-color: ${props=>props.bg};
+    color: ${props=>props.text};
     overflow: hidden;
+    :hover {
+        cursor: pointer;
+    }
+    > figure {
+        width: 300px;
+        height: 175px;
+    }
     > figure > img {
         width: 300px;
         height: 175px;
@@ -20,6 +28,7 @@ const StyledArticle = styled.article`
         align-items: flex-start;
         flex-wrap: wrap;
         height: 150px;
+        
         > h2 {
             width: 100%;
             text-align: left;
@@ -29,11 +38,12 @@ const StyledArticle = styled.article`
         }
     }
 `;
-const Country = ({item}) => {
+const Country = ({item, theme}) => {
+    const {element, text} = theme;
     const {name, flag, region, capital, population} = item;
     const dispatch = useDispatch();
     return (
-        <StyledArticle onClick={()=>{
+        <StyledArticle bg={element} text={text} onClick={()=>{
             dispatch({type: 'SELECT_COUNTRY', payload: item});
         }}>
             <figure>
