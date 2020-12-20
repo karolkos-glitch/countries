@@ -1,3 +1,12 @@
+The project idea is based on https://www.frontendmentor.io challenge - REST Countries API with color theme switcher.
+
+The app was build with:
+
+- ReactJS
+- styled-components
+- Redux
+- Redux-thunk
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -5,7 +5,7 @@ import {  connect } from 'react-redux';
 import { fetchDataByName, fetchDataByRegion } from '../actions';
 
 const StyledForm = styled.form`
-    width: 80%;
+    width: 100%;
     height: 200px;
     position: relative;
     padding: 50px 10px;
